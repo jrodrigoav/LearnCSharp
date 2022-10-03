@@ -1,11 +1,20 @@
+using LearnCSharp.Module3;
 using Serilog;
-using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
-using System.Xml.Linq;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddEndpointsApiExplorer();
 builder.Logging.ClearProviders();
+var app = builder.Build();
+app.UseHttpsRedirection();
 
+
+builder.Services.AddHttpClient("Backend", client =>
+{
+    client.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
+});
 
 var Logger = new LoggerConfiguration()
 .MinimumLevel.Information()
@@ -15,15 +24,12 @@ var Logger = new LoggerConfiguration()
 
 builder.Logging.AddSerilog(Logger);
 Log.Logger = Logger;
-var app = builder.Build();
 
-app.MapGet("response", async  (ILoggerFactory loggerFactory) =>
+app.MapGet("response", async ( ILoggerFactory loggerFactory) =>
 {
     var logger = loggerFactory.CreateLogger("EjercicioSR");
     try
     {
-
-       
         HttpClient client = new HttpClient();
         logger.LogInformation("llamando al web service");
         var response = await client.GetAsync("https://jsonplaceholder.typicode.com/users/1");
@@ -39,5 +45,7 @@ app.MapGet("response", async  (ILoggerFactory loggerFactory) =>
         logger.LogError(e.Message);
         throw;
     }
+
 });
+
 app.Run();
