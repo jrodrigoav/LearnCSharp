@@ -1,51 +1,37 @@
 using LearnCSharp.Module3;
+using LearnCSharp.Module3.Models;
 using Serilog;
-using Serilog.Sinks.SystemConsole.Themes;
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
 
+Log.Information("Starting up");
 
-var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddEndpointsApiExplorer();
-builder.Logging.ClearProviders();
-var app = builder.Build();
-app.UseHttpsRedirection();
-
-
-builder.Services.AddHttpClient("Backend", client =>
+try
 {
-    client.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
-});
+    var builder = WebApplication.CreateBuilder(args);
 
-var Logger = new LoggerConfiguration()
-.MinimumLevel.Information()
-   .WriteTo.Console(theme: AnsiConsoleTheme.Code)
-   .WriteTo.File(@"C:\\log\\serilog.txt")
-   .CreateLogger();
+    builder.Services.Configure<JsonplaceholderSettings>(builder.Configuration.GetSection(nameof(JsonplaceholderSettings)));
+    builder.Services.AddHttpClient<IJsonplaceholderService, JsonplaceholderService>();
 
-builder.Logging.AddSerilog(Logger);
-Log.Logger = Logger;
-
-app.MapGet("response", async ( ILoggerFactory loggerFactory) =>
+    builder.Services.AddControllers();
+    builder.Host.UseSerilog((ctx, lc) => lc
+        .WriteTo.Console()
+        .ReadFrom.Configuration(ctx.Configuration));
+    var app = builder.Build();
+    app.UseHttpsRedirection();
+    app.UseSerilogRequestLogging();
+    app.MapGet("/", () => "LearnCSharp.Module3");
+    app.MapControllers();
+    app.Run();
+}
+catch (Exception ex)
 {
-    var logger = loggerFactory.CreateLogger("EjercicioSR");
-    try
-    {
-        HttpClient client = new HttpClient();
-        logger.LogInformation("llamando al web service");
-        var response = await client.GetAsync("https://jsonplaceholder.typicode.com/users/1");
-        response.EnsureSuccessStatusCode();
-        string responseBody = await response.Content.ReadAsStringAsync();
-        logger.LogInformation("eres chilo");
-
-
-        return responseBody;
-    }
-    catch (Exception e)
-    {
-        logger.LogError(e.Message);
-        throw;
-    }
-
-});
-
-app.Run();
+    Log.Fatal(ex, "Unhandled exception");
+}
+finally
+{
+    Log.Information("Shut down complete");
+    Log.CloseAndFlush();
+}
