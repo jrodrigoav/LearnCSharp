@@ -21,6 +21,7 @@ try
         .ReadFrom.Configuration(ctx.Configuration));
     var app = builder.Build();
     app.UseHttpsRedirection();
+    app.UseStaticFiles();    
     app.UseSerilogRequestLogging();
     app.MapGet("/", () => "LearnCSharp.Module3");
     app.MapControllers();
