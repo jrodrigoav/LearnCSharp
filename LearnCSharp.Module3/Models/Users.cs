@@ -1,33 +1,34 @@
-﻿using Newtonsoft.Json;
-using System.Net.Http.Json;
-using System.Text.Json.Serialization;
-using static LearnCSharp.Module3.Models.Users;
+﻿using System.Text.Json.Serialization;
 
 namespace LearnCSharp.Module3.Models
 {
     public class Users 
     {
-        public class Root
-        {
-            [JsonPropertyName("id")]
-            public int Id { get; set; }
-            [JsonPropertyName("name")]
-            public string Name { get; set; }
-            [JsonPropertyName("username")]
-            public string Username { get; set; }
-            [JsonPropertyName("email")]
-            public string Email { get; set; }
-            [JsonPropertyName("address")]
-            public Address? Address { get; set; }
-            [JsonPropertyName("phone")]
-            public string Phone { get; set; }
-            [JsonPropertyName("website")]
-            public string Website { get; set; }
-            [JsonPropertyName("company")]
-            public Company Company { get; set; }
-        }
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+        [JsonPropertyName("username")]
+        public string Username { get; set; }
+        [JsonPropertyName("email")]
+        public string Email { get; set; }
+
+        [JsonPropertyName("phone")]
+        public string Phone { get; set; }
+        [JsonPropertyName("website")]
+        public string Website { get; set; }
+
+        [JsonPropertyName("address")]
+        public Address address { get; set; }
+        [JsonPropertyName("geo")]
+        public Geo geo { get; set; }
+        [JsonPropertyName("company")]
+        public Company company { get; set; }
+
+
         public class Address
         {
+            
             [JsonPropertyName("street")]
             public string Street { get; set; }
             [JsonPropertyName("suite")]
@@ -36,14 +37,13 @@ namespace LearnCSharp.Module3.Models
             public string City { get; set; }
             [JsonPropertyName("zipcode")]
             public string Zipcode { get; set; }
-            [JsonPropertyName("geo")]
-            public Geo Geo { get; set; }
         }
+
 
         public class Company
         {
             [JsonPropertyName("name")]
-            public string Name { get; set; }
+            public string NameWork { get; set; }
             [JsonPropertyName("catchPhrase")]
             public string CatchPhrase { get; set; }
             [JsonPropertyName("bs")]
@@ -58,7 +58,10 @@ namespace LearnCSharp.Module3.Models
             public string Lng { get; set; }
         }
 
-        
+
+
+
+
 
     }
 }

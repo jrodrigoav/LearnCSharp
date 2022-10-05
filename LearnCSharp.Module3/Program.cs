@@ -1,5 +1,7 @@
 using LearnCSharp.Module3;
+using LearnCSharp.Module3.Controllers;
 using LearnCSharp.Module3.Models;
+using Newtonsoft.Json;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -14,7 +16,7 @@ try
 
     builder.Services.Configure<JsonplaceholderSettings>(builder.Configuration.GetSection(nameof(JsonplaceholderSettings)));
     builder.Services.AddHttpClient<IJsonplaceholderService, JsonplaceholderService>();
-
+    
     builder.Services.AddControllers();
     builder.Host.UseSerilog((ctx, lc) => lc
         .WriteTo.Console()

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Query.Internal;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace LearnCSharp.Module3.Models
 {
