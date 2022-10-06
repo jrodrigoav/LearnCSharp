@@ -1,7 +1,5 @@
 using LearnCSharp.Module3;
-using LearnCSharp.Module3.Controllers;
 using LearnCSharp.Module3.Models;
-using Newtonsoft.Json;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
