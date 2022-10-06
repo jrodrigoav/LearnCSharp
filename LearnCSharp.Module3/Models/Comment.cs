@@ -2,7 +2,7 @@
 
 namespace LearnCSharp.Module3.Models
 {
-    public class Comments
+    public class Comment
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }

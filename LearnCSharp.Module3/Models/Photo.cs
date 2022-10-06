@@ -2,7 +2,7 @@
 
 namespace LearnCSharp.Module3.Models
 {
-    public class Photos
+    public class Photo
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }

@@ -19,31 +19,31 @@ namespace LearnCSharp.Module3
             return posts ?? Array.Empty<Post>();
         }
 
-        public async Task<Todos[]> GetTodosAsync()
+        public async Task<Todo[]> GetTodosAsync()
         {
-            var todos = await _client.GetFromJsonAsync<Todos[]>("todos");
-            return todos ?? Array.Empty<Todos>();
+            var todos = await _client.GetFromJsonAsync<Todo[]>("todos");
+            return todos ?? Array.Empty<Todo>();
         }
 
-        public async Task<Users[]> GetUsersAsync()
+        public async Task<User[]> GetUsersAsync()
         {
-            var users = await _client.GetFromJsonAsync<Users[]>("users");
-            return users ?? Array.Empty<Users>();
+            var users = await _client.GetFromJsonAsync<User[]>("users");
+            return users ?? Array.Empty<User>();
         }
-        public async Task<Comments[]> GetCommentsAsync()
+        public async Task<Comment[]> GetCommentsAsync()
         {
-            var comments = await _client.GetFromJsonAsync<Comments[]>("comments");
-            return comments ?? Array.Empty<Comments>();
+            var comments = await _client.GetFromJsonAsync<Comment[]>("comments");
+            return comments ?? Array.Empty<Comment>();
         }
-        public async Task<Albums[]> GetAlbumsAsync()
+        public async Task<Album[]> GetAlbumsAsync()
         {
-            var albums = await _client.GetFromJsonAsync<Albums[]>("albums");
-            return albums ?? Array.Empty<Albums>();
+            var albums = await _client.GetFromJsonAsync<Album[]>("albums");
+            return albums ?? Array.Empty<Album>();
         }
-        public async Task<Photos[]> GetPhotosAsync()
+        public async Task<Photo[]> GetPhotosAsync()
         {
-            var photos = await _client.GetFromJsonAsync<Photos[]>("photos");
-            return photos ?? Array.Empty<Photos>();
+            var photos = await _client.GetFromJsonAsync<Photo[]>("photos");
+            return photos ?? Array.Empty<Photo>();
         }
     }
 }

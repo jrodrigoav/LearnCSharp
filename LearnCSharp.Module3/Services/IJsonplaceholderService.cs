@@ -6,14 +6,14 @@ namespace LearnCSharp.Module3
     {
         Task<Post[]> GetPostsAsync();
 
-        Task<Users[]> GetUsersAsync();
+        Task<User[]> GetUsersAsync();
 
-        Task<Todos[]> GetTodosAsync();
+        Task<Todo[]> GetTodosAsync();
 
-        Task<Comments[]> GetCommentsAsync();
+        Task<Comment[]> GetCommentsAsync();
 
-        Task<Albums[]> GetAlbumsAsync();
+        Task<Album[]> GetAlbumsAsync();
 
-        Task<Photos[]> GetPhotosAsync();
+        Task<Photo[]> GetPhotosAsync();
     }
 }
