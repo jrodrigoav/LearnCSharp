@@ -15,5 +15,7 @@ namespace LearnCSharp.Module3
         Task<Album[]> GetAlbumsAsync();
 
         Task<Photo[]> GetPhotosAsync();
+
+        //Task<Todo[]> PostCreateTodosAsync();
     }
 }

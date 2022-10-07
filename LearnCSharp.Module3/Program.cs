@@ -1,3 +1,4 @@
+using FluentValidation;
 using LearnCSharp.Module3;
 using LearnCSharp.Module3.Models;
 using Serilog;
@@ -14,8 +15,9 @@ try
 
     builder.Services.Configure<JsonplaceholderSettings>(builder.Configuration.GetSection(nameof(JsonplaceholderSettings)));
     builder.Services.AddHttpClient<IJsonplaceholderService, JsonplaceholderService>();
-    
+    builder.Services.AddTransient<IValidator<Todo>, CreateTodoRequest>();
     builder.Services.AddControllers();
+    
     builder.Host.UseSerilog((ctx, lc) => lc
         .WriteTo.Console()
         .ReadFrom.Configuration(ctx.Configuration));
