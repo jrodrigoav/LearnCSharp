@@ -1,36 +1,25 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
-using LearnCSharp.Module3.Models;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
+using FluentValidation.AspNetCore;
+using LearnCSharp.Module3.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace LearnCSharp.Module3.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("api/todos"), ApiController]
     public class TodosController : ControllerBase
     {
-        private readonly IValidator<Todo> _validator;
-
-        public TodosController(IValidator<Todo> validator)
-        {
-            _validator = validator;
-        }
-        
-
         [HttpPost]
-       public async Task<IActionResult> CreatedTodo(CreateTodoRequest createTodoRequest)
+        public async Task<IActionResult> CreateTodo(CreateTodoRequest model, [FromServices] IValidator<CreateTodoRequest> validationRules)
         {
-            var result = await _validator.ValidateAsync((IValidationContext)createTodoRequest);
-        if(result.IsValid)
+            var result = await validationRules.ValidateAsync(model);
+            if (result.IsValid)
             {
-                return Created("api/jsonplaceholder/todo", null);
+                return Created("api/todos", null);
             }
             else
             {
-                return BadRequest();
+                result.AddToModelState(ModelState);
+                return BadRequest(ModelState);
             }
         }
     }
