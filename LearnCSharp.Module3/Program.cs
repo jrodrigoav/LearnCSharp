@@ -13,8 +13,9 @@ try
     var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.Configure<JsonplaceholderSettings>(builder.Configuration.GetSection(nameof(JsonplaceholderSettings)));
-    builder.Services.AddHttpClient<IJsonplaceholderService, JsonplaceholderService>();
-    
+    builder.Services.AddHttpClient<ITodosService, TodosService>();
+    builder.Services.AddHttpClient<IUsersService, UsersService>();
+
     builder.Services.AddValidatorsFromAssemblyContaining<CreateTodoRequestValidator>();
     builder.Services.AddControllers();
 
